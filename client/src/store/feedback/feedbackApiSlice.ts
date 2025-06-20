@@ -17,7 +17,13 @@ export const feedbackApiSlice = createApi({
     endpoints: (build) => {
         return {
             getAllFeedbacks: build.query<FeedbackList, FeedbackFilter>({
-                query: ({ page = 1, limit = 10, category, status, sortBy }) => `?page=${page}&limit=${limit}${category && `&category=${category}`}${status && `&status=${status}`}${sortBy && `&sortBy=${sortBy}`}`,
+                query: ({ page = 1, limit = 10, category, status, sortBy }) => {
+                    const isStatusAvailable = status ? `&status=${status}` : '';
+                    const isSortByAvailable = sortBy ? `&sortBy=${sortBy}` : '';
+                    const isCategoryAvailable =category ? `&category=${category}` : ''
+
+                    return `?page=${page}&limit=${limit}${isCategoryAvailable}${isStatusAvailable}${isSortByAvailable}`
+                },
             }),
             getFeedbacksByUserId: build.query<
                 FeedbackList,
