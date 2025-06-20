@@ -1,16 +1,18 @@
+@import "variables";
+
 html {
   font-size: var(--font-size-base);
   height: 100%;
+  background-color: var(--c-background);
 }
 
 body {
   min-width: 320px;
   background: var(--c-blue-5);
-  font-family: var(--ff-sans-serif);
+  font-family: var(--ff-text);
   font-weight: var(--font-weight-base);
   line-height: var(--line-height-base);
-  background-color: var(--c-gray-1);
-  color: var(--c-white);
+  color: var(--c-secondary-text);
 }
 
 a {
@@ -39,7 +41,8 @@ h5,
 .h6,
 h6 {
   font-weight: 500;
-  font-family: var(--ff-sans-serif);
+  color: var(--c-primary-text);
+  font-family: var(--ff-titles);
   margin-bottom: calc(#{var(--line-height-base)}em / 2);
 }
 

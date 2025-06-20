@@ -1,11 +1,21 @@
-import { Button } from "@/components/ui";
+import {Button} from "@/components/ui";
 
 export const App = () => {
     return(
-        <>
-            <h1>App</h1>
+        <div className="wrapper">
+            <main className='main'>
+                main
 
-            <Button/>
-        </>
+                <Button>
+                    <span>
+                        text
+                    </span>
+                </Button>
+            </main>
+
+            <footer className="footer">
+                footer
+            </footer>
+        </div>
     )
 }

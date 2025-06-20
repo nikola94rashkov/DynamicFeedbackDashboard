@@ -16,16 +16,24 @@
   --shell-gutter: 30px;
 
   /* Colors */
-  --c-primary: #4F46E5;
-  --c-secondary: #10B981;
-  --c-background: #F9FAFB;
-  --c-text: #1F2937;
-  --c-text-subtle: #6B7280;
-  --c-error: #EF4444;
+  --c-background: #101828;
+  --c-cards: #1e2939;
+  --c-primary-text: #E0E0E0;
+  --c-secondary-text: #7b8492;
+  --c-btn: #615fff;
+  --c-success: #28A745;
+  --c-error: #E94560;
 
   /* Spacings */
   --spacing-0: 0;
   --spacing-20-0: 20rem 0;
+
+  /* Shadows */
+  --shadow-1: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04),
+  0 0 0 1px rgba(17, 24, 39, 0.05);
 
   /* Responsive Sizes */
   --mobile-small: 374px;

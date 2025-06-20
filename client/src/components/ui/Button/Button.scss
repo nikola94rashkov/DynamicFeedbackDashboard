@@ -1,0 +1,12 @@
+@import '../../../styles/variables';
+
+.button {
+  all: unset;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  background-color: var(--c-btn);
+  color: var(--c-primary-text);
+  border-radius: 20%;
+}

@@ -21,9 +21,5 @@
     "mongoose": "^8.10.1",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.9"
-  },
-  "devDependencies": {
-    "sass": "^1.89.2",
-    "sass-embedded": "^1.89.2"
   }
 }
