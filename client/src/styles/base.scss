@@ -1,0 +1,101 @@
+html {
+  font-size: var(--font-size-base);
+  height: 100%;
+}
+
+body {
+  min-width: 320px;
+  background: var(--c-blue-5);
+  font-family: var(--ff-sans-serif);
+  font-weight: var(--font-weight-base);
+  line-height: var(--line-height-base);
+  background-color: var(--c-gray-1);
+  color: var(--c-white);
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &[href^='tel'] {
+    text-decoration: none;
+  }
+}
+
+.h1,
+h1,
+.h2,
+h2,
+.h3,
+h3,
+.h4,
+h4,
+.h5,
+h5,
+.h6,
+h6 {
+  font-weight: 500;
+  font-family: var(--ff-sans-serif);
+  margin-bottom: calc(#{var(--line-height-base)}em / 2);
+}
+
+.h1,
+h1 {
+  font-size: 4.5rem;
+}
+
+.h2,
+h2 {
+  font-size: 4rem;
+}
+
+.h3,
+h3 {
+  font-size: 3.5rem;
+}
+
+.h4,
+h4 {
+  font-size: 3rem;
+}
+
+.h5,
+h5 {
+  font-size: 2.5rem;
+}
+
+.h6,
+h6 {
+  font-size: 2rem;
+}
+
+a,
+p,
+ul,
+ol,
+dl,
+hr,
+table,
+blockquote {
+  font-size: 1.6rem;
+  margin-bottom: var(#{var(--line-height-base)}em);
+}
+
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child,
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+table:last-child,
+blockquote:last-child {
+  margin-bottom: var(--spacing-0);
+}

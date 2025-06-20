@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+:root {
+  /* Font parameters */
+  --font-size-base: 62.5%;
+  --font-weight-base: 400;
+  --line-height-base: 1.2;
+
+  /* Fonts */
+  --ff-titles: 'Poppins', sans-serif;
+  --ff-text: 'Inter', sans-serif;
+
+  /* Shell width and gutters */
+  --shell-max-width: 1000px;
+  --shell-gutter: 30px;
+
+  /* Colors */
+  --c-primary: #4F46E5;
+  --c-secondary: #10B981;
+  --c-background: #F9FAFB;
+  --c-text: #1F2937;
+  --c-text-subtle: #6B7280;
+  --c-error: #EF4444;
+
+  /* Spacings */
+  --spacing-0: 0;
+  --spacing-20-0: 20rem 0;
+
+  /* Responsive Sizes */
+  --mobile-small: 374px;
+  --mobile-medium: 575px;
+  --mobile: 767px;
+  --tablet: 1023px;
+  --small-desktop: 1199px;
+  --large-desktop: 1399px;
+}
