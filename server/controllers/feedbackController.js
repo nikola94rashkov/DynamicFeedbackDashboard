@@ -110,27 +110,95 @@ const getFeedbackById = async (req, res) => {
 };
 
 const getAllFeedbacks = async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10, status, category, sortBy } = req.query;
+
+    const filter = {};
+    if (category) filter.category = category;
+    if (status) filter.status = status;
 
     try {
         const skip = (page - 1) * limit;
+        let feedbacks;
+        let totalFeedbacks = await Feedback.countDocuments(filter);
 
-        const feedbacks = await Feedback.find()
-            .populate('author', 'firstName lastName email')
-            .skip(skip)
-            .limit(parseInt(limit))
-            .sort({ createdAt: -1 });
+        if (sortBy && sortBy.toLowerCase() === 'status') {
+            feedbacks = await Feedback.aggregate([
+                { $match: filter },
+                { $addFields: {
+                        statusOrder: {
+                            $switch: {
+                                branches: [
+                                    { case: { $eq: ["$status", "pending"] }, then: 1 },
+                                    { case: { $eq: ["$status", "resolved"] }, then: 2 },
+                                    { case: { $eq: ["$status", "closed"] }, then: 3 }
+                                ],
+                                default: 4
+                            }
+                        }
+                    }},
+                { $sort: { statusOrder: 1, createdAt: -1 } },
+                { $skip: skip },
+                { $limit: parseInt(limit) },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'author',
+                        foreignField: '_id',
+                        as: 'author'
+                    }
+                },
+                { $unwind: '$author' },
+                { $project: {
+                        name: 1,
+                        content: 1,
+                        email: 1,
+                        category: 1,
+                        status: 1,
+                        createdAt: 1,
+                        updatedAt: 1,
+                    }}
+            ]);
+        } else {
+            let sortOptions = { createdAt: -1 };
 
-        const totalFeedbacks = await Feedback.countDocuments();
+            if (sortBy) {
+                switch (sortBy.toLowerCase()) {
+                    case 'name':
+                        sortOptions = { name: 1 };
+                        break;
+                    case 'category':
+                        sortOptions = { category: 1 };
+                        break;
+                    case 'newest':
+                        sortOptions = { createdAt: -1 };
+                        break;
+                    case 'oldest':
+                        sortOptions = { createdAt: 1 };
+                        break;
+                }
+            }
+
+            feedbacks = await Feedback.find(filter)
+                .populate('author', 'firstName lastName email')
+                .skip(skip)
+                .limit(parseInt(limit))
+                .sort(sortOptions);
+        }
 
         res.status(200).json({
+            success: true,
             feedbacks,
             totalFeedbacks,
             totalPages: Math.ceil(totalFeedbacks / limit),
             currentPage: parseInt(page),
         });
     } catch (err) {
-        res.status(500).json({ message: 'Server error', error: err.message });
+        console.error('Error fetching feedbacks:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Server error while fetching feedbacks',
+            error: err.message
+        });
     }
 };
 
