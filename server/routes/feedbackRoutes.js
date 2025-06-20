@@ -20,6 +20,6 @@ router.delete('/:id', isAuthenticated, deleteFeedback);
 router.get('/:id', getFeedbackById);
 router.get('/', getAllFeedbacks);
 
-router.get('/', getFeedbacksByUserId);
+router.get('/user/:userId', getFeedbacksByUserId);
 
 module.exports = router;
