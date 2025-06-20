@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UserCookie } from '@/types'
-import { AppDispatch } from '@/store/store.ts'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import type { UserCookie } from '@/types/user.types'
+import type { AppDispatch } from '@/store/store'
 
 const loadUserFromLocalStorage = (): UserCookie | null => {
     if (typeof window === 'undefined') return null
