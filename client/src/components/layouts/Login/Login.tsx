@@ -1,9 +1,10 @@
 import {useLoginMutation} from "@/store/user/userApiSlice.ts";
 import {useDispatch} from "react-redux";
 import {setUser} from "@/store/auth/authSlice.ts";
+import type {AppDispatch} from "@/store/store.ts";
 
 export const Login = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
     const [login] = useLoginMutation();
 
 

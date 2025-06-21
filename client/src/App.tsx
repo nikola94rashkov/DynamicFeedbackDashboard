@@ -3,6 +3,8 @@ import {initializeAuth} from "@/store/auth/authSlice.ts";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import type {AppDispatch} from "@/store/store.ts";
+import { Header, Footer } from "@/components/composed";
+// import './styles/load.scss';
 
 export const App = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -13,13 +15,15 @@ export const App = () => {
 
     return(
         <div className="wrapper">
-            <main className='main'>
-               <Router/>
-            </main>
+            <div className="wrapper__inner">
+                <Header />
 
-            <footer className="footer">
-                footer
-            </footer>
+                <main className='main'>
+                    <Router/>
+                </main>
+
+                <Footer />
+            </div>
         </div>
     )
 }
