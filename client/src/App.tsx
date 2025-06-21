@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import type {AppDispatch} from "@/store/store.ts";
 import { Header, Footer } from "@/components/composed";
-// import './styles/load.scss';
+import {Section} from "@/components/hoc";
 
 export const App = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -15,15 +15,15 @@ export const App = () => {
 
     return(
         <div className="wrapper">
-            <div className="wrapper__inner">
-                <Header />
+            <Header />
 
-                <main className='main'>
-                    <Router/>
-                </main>
+            <main className='main'>
+              <Section>
+                  <Router/>
+              </Section>
+            </main>
 
-                <Footer />
-            </div>
+            <Footer />
         </div>
     )
 }

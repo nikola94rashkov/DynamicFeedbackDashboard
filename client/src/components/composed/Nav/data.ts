@@ -11,6 +11,7 @@ export const data = (handleLogout: () => Promise<void>) => {
             },
             {
                 text: 'Logout',
+                isItButtonElement: true,
                 onClick: handleLogout,
             },
         ],

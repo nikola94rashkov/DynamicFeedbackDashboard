@@ -1,9 +1,13 @@
-import {Nav} from "@/components/composed/Nav";
+import { Nav } from "@/components/composed";
+import { Shell } from "@/components/hoc";
+import './Header.scss'
 
 export const Header = () => {
     return (
         <header className="header">
-            <Nav/>
+            <Shell>
+                <Nav/>
+            </Shell>
         </header>
     )
 }

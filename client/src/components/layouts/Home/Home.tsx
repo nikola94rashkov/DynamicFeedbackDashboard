@@ -1,4 +1,5 @@
 import {useGetAllFeedbacksQuery} from "@/store/feedback/feedbackApiSlice.ts";
+import {CardList} from "@/components/composed";
 
 export const Home = () => {
     const { data, isLoading, isError } = useGetAllFeedbacksQuery({
@@ -11,5 +12,12 @@ export const Home = () => {
     console.log('isLoading', isLoading)
     console.log('isError', isError)
 
-    return <h1>Home</h1>
+    if(isLoading) return <h1>Loading...</h1>;
+    if(!data?.feedbacks) return <h1>No feedbacks found</h1>
+
+    return (
+        <>
+            <CardList cards={data?.feedbacks} />
+        </>
+    )
 }

@@ -1,0 +1,7 @@
+ul.cards-list {
+  list-style: none;
+
+  li + li {
+    margin-top: 2rem;
+  }
+}

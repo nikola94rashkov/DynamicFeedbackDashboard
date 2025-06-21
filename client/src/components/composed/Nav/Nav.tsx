@@ -1,10 +1,16 @@
+import { useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from "react-redux";
 import type {AppDispatch, RootState} from "@/store/store.ts";
-import { useNavigate } from 'react-router-dom'
 import {clearUser} from "@/store/auth/authSlice.ts";
 import { useLogoutMutation } from "@/store/user/userApiSlice";
+import {Button, NavButton, type NavButtopProps} from "@/components/ui";
+
 import {data} from "./data";
-import {NavButton, type NavButtopProps} from "@/components/ui";
+import './Nav.scss';
+
+type NavLinkProps = {
+    isItButtonElement?: boolean;
+} & NavButtopProps
 
 export const Nav = () => {
     const { user } = useSelector((state: RootState) => state.authSlice)
@@ -26,9 +32,9 @@ export const Nav = () => {
     return <nav className="nav">
         <ul>
             {
-                (user ? navigationConfig.auth : navigationConfig.unauth).map(({text, to, onClick}: NavButtopProps, index) => {
+                (user ? navigationConfig.auth : navigationConfig.unauth).map(({text, to, onClick, isItButtonElement}: NavLinkProps, index) => {
 
-                    return <NavButton key={index} to={to} text={text} onClick={onClick} />
+                    return <li key={index}>{ isItButtonElement ? <Button onClick={onClick}>{text}</Button> : <NavButton to={to} text={text} onClick={onClick} />}</li>
                 })
             }
         </ul>

@@ -1,0 +1,47 @@
+.card {
+  padding: 1.5rem 2rem;
+  background-color: var(--c-cards);
+  box-shadow: var(--shadow-2);
+
+  &__status {
+    display: inline-block;
+    padding: .7rem 2rem;
+    margin-left: -2rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    line-height: 1;
+    font-weight: 500;
+    color: var(--c-primary-text);
+
+    &--pending {
+      background-color: var(--c-pending);
+    }
+
+    &--resolved {
+      background-color: var(--c-success)
+    }
+
+    &--closed {
+      background-color: var(--c-error)
+    }
+  }
+
+  &__name {
+    padding: 1rem 0;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  &__category {
+    border-bottom: 1px solid transparent;
+
+    &--bug {
+      border-color: var(--c-error);
+    }
+
+    &--feature {
+      border-color: var(--c-success)
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import type {ComponentProps} from "react";
 import {NavLink} from "react-router-dom";
+import './NavButton.scss'
 
 export type NavButtopProps = {
     to?: string;
@@ -15,6 +16,6 @@ export const NavButton = (props: NavButtopProps)=> {
     } = props;
 
     return <NavLink to={to}  className={({ isActive, isPending }) =>
-        isPending ? "pending" : isActive ? "active" : ""
+        `btn ${isPending ? "pending" : isActive ? "active" : ""}`
     } {...rest}>{text}</NavLink>
 }

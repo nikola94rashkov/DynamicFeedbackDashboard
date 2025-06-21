@@ -1,7 +1,12 @@
+import './Footer.scss';
+import {Shell} from "@/components/hoc";
+
 export const Footer = () => {
     return (
         <footer className="footer">
-            footer
+           <Shell>
+               footer
+           </Shell>
         </footer>
     )
 }

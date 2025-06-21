@@ -9,11 +9,11 @@ html {
 
 body {
   min-width: 320px;
-  background: var(--c-blue-5);
   font-family: var(--ff-text);
   font-weight: var(--font-weight-base);
   line-height: var(--line-height-base);
   color: var(--c-secondary-text);
+  font-size: 1.5rem;
 }
 
 a {
