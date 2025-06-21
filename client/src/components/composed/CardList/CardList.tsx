@@ -6,9 +6,9 @@ import './CardList.scss'
 export const CardList = ({ cards } : { cards: FeedbackExtended[] })  => {
     return (
         <ul className='cards-list'>
-            {cards.map(({name, content, status, category, _id}) => (
+            {cards.map(({author, name, content, status, category, _id}) => (
                 <li key={_id}>
-                    <Card name={name} content={content} status={status} category={category} _id={_id}/>
+                    <Card author={author} name={name} content={content} status={status} category={category} _id={_id}/>
                 </li>
             ))}
         </ul>

@@ -109,6 +109,24 @@ blockquote:last-child {
 }
 
 .error {
+  display: block;
+  margin-top: 0.7rem;
   opacity: 1;
   color: var(--c-error);
+}
+
+.form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 4rem 3rem;
+  background: color-mix(in srgb, var(--c-cards) 30%, transparent);
+  box-shadow: var(--shadow-2);
+
+  .form__row {
+    margin-bottom: 2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

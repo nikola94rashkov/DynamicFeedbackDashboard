@@ -1,7 +1,11 @@
 .field {
-  all: unset;
+  background-color: transparent;
   display: block;
   width: 100%;
   padding: 1rem 1.5rem;
   border: 1px solid var(--c-cards);
+
+  &:focus {
+    border-color: var(--c-btn);
+  }
 }

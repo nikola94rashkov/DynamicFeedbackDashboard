@@ -11,10 +11,10 @@ export type Feedback = {
     content: string
     status: Status
     category: Category
+    author?: UserDocument
 }
 
 export type FeedbackExtended = {
-    author?: UserDocument
     createdAt?: Date
     updatedAt?: Date
 } & Feedback
