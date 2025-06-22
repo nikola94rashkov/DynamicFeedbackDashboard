@@ -113,8 +113,16 @@ const getAllFeedbacks = async (req, res) => {
     const { page = 1, limit = 10, status, category, sortBy, search } = req.query;
 
     const filter = {};
-    if (category) filter.category = category;
-    if (status) filter.status = status;
+
+    // Handle wildcard for category
+    if (category && category !== '*') {
+        filter.category = category;
+    }
+
+    // Handle wildcard for status
+    if (status && status !== '*') {
+        filter.status = status;
+    }
 
     if (search) {
         filter.$or = [
@@ -129,59 +137,62 @@ const getAllFeedbacks = async (req, res) => {
         let feedbacks;
         let totalFeedbacks = await Feedback.countDocuments(filter);
 
-        if (sortBy && sortBy.toLowerCase() === 'status') {
-            feedbacks = await Feedback.aggregate([
-                { $match: filter },
-                { $addFields: {
-                        statusOrder: {
-                            $switch: {
-                                branches: [
-                                    { case: { $eq: ["$status", "pending"] }, then: 1 },
-                                    { case: { $eq: ["$status", "resolved"] }, then: 2 },
-                                    { case: { $eq: ["$status", "closed"] }, then: 3 }
-                                ],
-                                default: 4
-                            }
-                        }
-                    }},
-                { $sort: { statusOrder: 1, createdAt: -1 } },
-                { $skip: skip },
-                { $limit: parseInt(limit) },
-                { $project: {
-                        name: 1,
-                        email: 1,
-                        content: 1,
-                        category: 1,
-                        status: 1,
-                        createdAt: 1,
-                        updatedAt: 1,
-                        author: {
-                            _id: '$author._id',
-                            email: '$author.email',
-                            role: '$author.role'
-                        }
-                    }}
-            ]);
-        } else {
-            let sortOptions = { createdAt: -1 };
-
-            if (sortBy) {
-                switch (sortBy.toLowerCase()) {
-                    case 'name':
-                        sortOptions = { name: 1 };
-                        break;
-                    case 'category':
-                        sortOptions = { category: 1 };
-                        break;
-                    case 'newest':
-                        sortOptions = { createdAt: -1 };
-                        break;
-                    case 'oldest':
-                        sortOptions = { createdAt: 1 };
-                        break;
-                }
+        // Handle wildcard for sortBy (default to createdAt: -1 if '*' is passed)
+        let sortOptions = { createdAt: -1 };
+        if (sortBy && sortBy !== '*') {
+            switch (sortBy.toLowerCase()) {
+                case 'status':
+                    // Special case for status sorting (using aggregation)
+                    feedbacks = await Feedback.aggregate([
+                        { $match: filter },
+                        { $addFields: {
+                                statusOrder: {
+                                    $switch: {
+                                        branches: [
+                                            { case: { $eq: ["$status", "pending"] }, then: 1 },
+                                            { case: { $eq: ["$status", "resolved"] }, then: 2 },
+                                            { case: { $eq: ["$status", "closed"] }, then: 3 }
+                                        ],
+                                        default: 4
+                                    }
+                                }
+                            }},
+                        { $sort: { statusOrder: 1, createdAt: -1 } },
+                        { $skip: skip },
+                        { $limit: parseInt(limit) },
+                        { $project: {
+                                name: 1,
+                                email: 1,
+                                content: 1,
+                                category: 1,
+                                status: 1,
+                                createdAt: 1,
+                                updatedAt: 1,
+                                author: {
+                                    _id: '$author._id',
+                                    email: '$author.email',
+                                    role: '$author.role'
+                                }
+                            }}
+                    ]);
+                    break;
+                case 'name':
+                    sortOptions = { name: 1 };
+                    break;
+                case 'category':
+                    sortOptions = { category: 1 };
+                    break;
+                case 'newest':
+                    sortOptions = { createdAt: -1 };
+                    break;
+                case 'oldest':
+                    sortOptions = { createdAt: 1 };
+                    break;
             }
+        }
 
+        // If we didn't already get feedbacks through the status sort aggregation
+        if (!feedbacks) {
             feedbacks = await Feedback.find(filter)
                 .populate('author', '_id email role')
                 .skip(skip)
