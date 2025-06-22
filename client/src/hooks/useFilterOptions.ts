@@ -24,7 +24,10 @@ export const useFilterOptions = (defaultLimit = 10) => {
         setSearchParams(prevParams => {
             const params = new URLSearchParams(prevParams);
 
-            params.set('page', '1');
+            // Only update page if it's provided in newFilters
+            if (newFilters.page !== undefined) {
+                params.set('page', newFilters.page.toString());
+            }
 
             if (newFilters.search !== undefined) {
                 if (newFilters.search) {
