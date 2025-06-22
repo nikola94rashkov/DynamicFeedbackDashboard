@@ -13,8 +13,6 @@ export const Home = () => {
         sortBy: filters.sortBy,
     })
 
-    console.log('data', data)
-
     if(isLoading) return <h1>Loading...</h1>;
     if(isError) return <h1>Ops something went wrong!</h1>;
 
@@ -40,7 +38,6 @@ export const Home = () => {
                     setFilters={setFilters}
                 />
             }
-
         </>
     )
 }

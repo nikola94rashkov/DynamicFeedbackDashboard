@@ -6,6 +6,7 @@
   transition: background-color .3s;
   border: 1px solid var(--c-cards);
 
+  &.active,
   &:hover {
     background-color: var(--c-cards);
   }

@@ -111,9 +111,8 @@ const getFeedbackById = async (req, res) => {
 
 const getAllFeedbacks = async (req, res) => {
     const { page = 1, limit = 10, status, category, sortBy } = req.query;
-    const search = req.query.search || ''; // Get search separately
+    const search = req.query.search || '';
 
-    // Create base filter (status and category)
     const filter = {};
 
     if (category && category !== '*') {
@@ -124,7 +123,6 @@ const getAllFeedbacks = async (req, res) => {
         filter.status = status;
     }
 
-    // Create search filter separately
     const searchFilter = {};
     if (search) {
         searchFilter.$or = [
@@ -134,7 +132,6 @@ const getAllFeedbacks = async (req, res) => {
         ];
     }
 
-    // Combine filters if both exist
     const finalFilter = search ? { ...filter, ...searchFilter } : filter;
 
     try {

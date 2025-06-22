@@ -6,9 +6,11 @@ import {TextField} from "@/components/ui/TextField";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {defaultValues, schema} from "./createFeedback.schema.ts";
 import {categoryData, statusData} from "@/data/selects-data.ts";
+import {useNavigate} from "react-router-dom";
 
 export const CreateFeedback = () => {
     const [createFeedback] = useCreateFeedbackMutation()
+    const navigate = useNavigate()
 
     const {
         register,
@@ -31,6 +33,7 @@ export const CreateFeedback = () => {
             if(!response?.data?.feedback) return
 
             reset();
+            navigate('/dashboard');
         } catch (e) {
             console.error('Error creating feedback', e);
         }

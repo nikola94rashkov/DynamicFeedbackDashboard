@@ -1,5 +1,5 @@
 import { Field, Select } from "@/components/ui";
-import { categoryData, sortByData, statusData } from "@/data/selects-data.ts";
+import {filterCategoryData, filterStatusData, filterSortByData} from "@/data/selects-data.ts";
 import type {FeedbackFilter} from "@/types/feedback.types.ts";
 import './Filter.scss';
 
@@ -37,7 +37,7 @@ export const Filter = ({
                     <Select
                         id="category"
                         value={categoryValue}
-                        options={categoryData}
+                        options={filterCategoryData}
                         onChange={(e) => setFilters({ category: e.target.value })}
                     />
                 </div>
@@ -46,7 +46,7 @@ export const Filter = ({
                     <Select
                         id="status"
                         value={statusValue}
-                        options={statusData}
+                        options={filterStatusData}
                         onChange={(e) => setFilters({ status: e.target.value })}
                     />
                 </div>
@@ -55,7 +55,7 @@ export const Filter = ({
                     <Select
                         id="sortBy"
                         value={sortByValue}
-                        options={sortByData}
+                        options={filterSortByData}
                         onChange={(e) => setFilters({ sortBy: e.target.value })}
                     />
                 </div>
