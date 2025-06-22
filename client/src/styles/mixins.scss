@@ -1,14 +1,7 @@
-@use './variables';
-
 @mixin breakpoint-down($size) {
   @media (max-width: $size) {
     @content;
   }
-}
-
-@mixin display-flex {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 @mixin breakpoint-up($size) {

@@ -1,0 +1,23 @@
+.filter {
+  padding: 2rem 0;
+
+  &__cols {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__col {
+    flex: 1;
+
+    @media only screen and (max-width: 767px) {
+      & {
+        flex-basis: 100%;
+      }
+    }
+
+    &:first-child {
+      flex: 2;
+    }
+  }
+}

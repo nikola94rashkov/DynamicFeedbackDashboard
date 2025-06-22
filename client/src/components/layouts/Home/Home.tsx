@@ -1,14 +1,16 @@
 import {useGetAllFeedbacksQuery} from "@/store/feedback/feedbackApiSlice.ts";
-import {CardList} from "@/components/composed";
+import {CardList, Filter} from "@/components/composed";
+import {useFilterOptions} from "@/hooks";
 
 export const Home = () => {
-    const { data, isLoading, isError } = useGetAllFeedbacksQuery({
-        page: 1,
+    const { filters , setFilters } = useFilterOptions()
+    const {  data, isLoading, isError } = useGetAllFeedbacksQuery({
         limit: 10,
-        // search: 'aa',
-        // category: '',
-        // status: '',
-        // sortBy: 'status'
+        page: filters.page,
+        search: filters.search,
+        category: filters.category,
+        status: filters.status,
+        sortBy: filters.sortBy,
     })
 
     console.log('data', data)
@@ -16,11 +18,20 @@ export const Home = () => {
     console.log('isError', isError)
 
     if(isLoading) return <h1>Loading...</h1>;
-    if(!data?.feedbacks) return <h1>No feedbacks found</h1>
 
     return (
         <>
-            <CardList cards={data?.feedbacks} />
+            <Filter
+                setFilters={setFilters}
+                sortByValue={filters.sortBy}
+                categoryValue={filters.category}
+                searchValue={filters.search}
+                statusValue={filters.status}
+            />
+
+            {
+                !data?.feedbacks.length ? <h1>No feedbacks found</h1> :  <CardList cards={data?.feedbacks} />
+            }
         </>
     )
 }

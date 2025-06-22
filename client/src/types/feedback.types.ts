@@ -1,9 +1,9 @@
 import type { UserDocument } from './user.types';
-// import { Optional } from '@/types/utils.ts'
+import type {Optional} from "@/types/util.types.ts";
 
-export type Status = 'pending' | 'resolved' | 'closed';
-export type Category = 'bug' | 'feature';
-export type SortBy = 'name' | 'category' | 'status' | 'oldest' | 'newest';
+export type Status = 'pending' | 'resolved' | 'closed' | '*';
+export type Category = 'bug' | 'feature' | '*';
+export type SortBy = 'name' | 'category' | 'status' | 'oldest' | 'newest' | '*';
 
 export type Feedback = {
     _id?: string
@@ -47,8 +47,10 @@ export type FeedbackPagination = {
 }
 
 export type FeedbackFilter = {
-    category?: Category
-    status?: Status
-    sortBy?: SortBy
-    search?: string
-} & FeedbackPagination
+    category: string
+    status: string
+    sortBy: string
+    search?: Optional<string>
+}
+
+export type FeedbackFilterAndPagination = FeedbackFilter & FeedbackPagination

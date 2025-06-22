@@ -4,7 +4,7 @@ import type {
     FeedbackExtended,
     FeedbackPagination,
     FeedbackList,
-    FeedbackFilter, FeedbacksUpdate, FeedbackResponse
+    FeedbackFilter, FeedbacksUpdate, FeedbackResponse, FeedbackFilterAndPagination
 } from '@/types/feedback.types.ts'
 
 export const feedbackApiSlice = createApi({
@@ -16,7 +16,7 @@ export const feedbackApiSlice = createApi({
     tagTypes: ['Feedbacks'],
     endpoints: (build) => {
         return {
-            getAllFeedbacks: build.query<FeedbackList, FeedbackFilter>({
+            getAllFeedbacks: build.query<FeedbackList, FeedbackFilterAndPagination>({
                 query: ({ page = 1, limit = 10, category, status, sortBy, search }) => {
                     const isStatusAvailable = status ? `&status=${status}` : '';
                     const isSortByAvailable = sortBy ? `&sortBy=${sortBy}` : '';

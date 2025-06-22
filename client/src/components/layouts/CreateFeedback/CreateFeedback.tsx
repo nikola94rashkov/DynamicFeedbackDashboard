@@ -5,7 +5,7 @@ import type {FormFields} from "@/components/layouts/CreateFeedback/createFeedbac
 import {TextField} from "@/components/ui/TextField";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {defaultValues, schema} from "./createFeedback.schema.ts";
-import {categoryData, statusData} from "./data.ts";
+import {categoryData, statusData} from "@/data/selects-data.ts";
 
 export const CreateFeedback = () => {
     const [createFeedback] = useCreateFeedbackMutation()
