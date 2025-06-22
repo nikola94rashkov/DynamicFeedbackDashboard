@@ -110,41 +110,44 @@ const getFeedbackById = async (req, res) => {
 };
 
 const getAllFeedbacks = async (req, res) => {
-    const { page = 1, limit = 10, status, category, sortBy, search } = req.query;
+    const { page = 1, limit = 10, status, category, sortBy } = req.query;
+    const search = req.query.search || ''; // Get search separately
 
+    // Create base filter (status and category)
     const filter = {};
 
-    // Handle wildcard for category
     if (category && category !== '*') {
         filter.category = category;
     }
 
-    // Handle wildcard for status
     if (status && status !== '*') {
         filter.status = status;
     }
 
+    // Create search filter separately
+    const searchFilter = {};
     if (search) {
-        filter.$or = [
+        searchFilter.$or = [
             { name: { $regex: search, $options: 'i' } },
             { email: { $regex: search, $options: 'i' } },
             { content: { $regex: search, $options: 'i' } }
         ];
     }
 
+    // Combine filters if both exist
+    const finalFilter = search ? { ...filter, ...searchFilter } : filter;
+
     try {
         const skip = (page - 1) * limit;
         let feedbacks;
-        let totalFeedbacks = await Feedback.countDocuments(filter);
+        let totalFeedbacks = await Feedback.countDocuments(finalFilter);
 
-        // Handle wildcard for sortBy (default to createdAt: -1 if '*' is passed)
         let sortOptions = { createdAt: -1 };
         if (sortBy && sortBy !== '*') {
             switch (sortBy.toLowerCase()) {
                 case 'status':
-                    // Special case for status sorting (using aggregation)
                     feedbacks = await Feedback.aggregate([
-                        { $match: filter },
+                        { $match: finalFilter },
                         { $addFields: {
                                 statusOrder: {
                                     $switch: {
@@ -191,9 +194,8 @@ const getAllFeedbacks = async (req, res) => {
             }
         }
 
-        // If we didn't already get feedbacks through the status sort aggregation
         if (!feedbacks) {
-            feedbacks = await Feedback.find(filter)
+            feedbacks = await Feedback.find(finalFilter)
                 .populate('author', '_id email role')
                 .skip(skip)
                 .limit(parseInt(limit))
