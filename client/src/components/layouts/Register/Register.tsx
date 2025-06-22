@@ -37,7 +37,8 @@ export const Register = () => {
                 dispatch(
                     setUser({
                         _id: response.data.user?._id,
-                        role: response.data.user.role,
+                        role: response.data.user?.role,
+                        email: response.data.user?.email,
                     }),
                 )
             }

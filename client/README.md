@@ -1,54 +1,84 @@
-# React + TypeScript + Vite
+# Feedback Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern full-stack application with React 19, TypeScript, Vite, Express, and MongoDB.
 
-Currently, two official plugins are available:
+![Tech Stack](https://img.shields.io/badge/React-19-blue)
+![Tech Stack](https://img.shields.io/badge/TypeScript-5.8-blue)
+![Tech Stack](https://img.shields.io/badge/Vite-6.3-orange)
+![Tech Stack](https://img.shields.io/badge/Express-4.21-green)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Project Structure
 
-## Expanding the ESLint configuration
+feedback-app/  
+├── client/ # React + TypeScript frontend   
+└── server/ # Express + MongoDB backend
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Quick Start
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Prerequisites
+- Node.js v18+
+- MongoDB (local or Atlas)
+- npm v9+ or yarn
+
+1. Clone the repository
+2. Set up both client and server:
+
+```bash
+# Setup client
+cd client
+npm install
+npm run dev
+
+# In another terminal, setup server
+cd ../server
+npm install
+npm start
 ```
+## Client Application
+### Features:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+⚛️ React 19 with TypeScript     
+⚡ Vite for fast development     
+🧠 Redux Toolkit for state management        
+📝 Form handling with React Hook Form + Zod      
+🛣️ Client-side routing with React Router v7     
+💅 Styling with Sass     
+🔔 Toast notifications with Sonner       
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Available Scripts:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+npm run dev     # Start development server (http://localhost:5173)      
+npm run build   # Create production build       
+npm run lint    # Run ESLint        
+npm run preview # Preview production build
+
+## Server Application
+### Features:
+
+🚀 Express.js REST API   
+🍃 MongoDB with Mongoose     
+🔐 Authentication     
+🔄 Automatic restart with Nodemon
+
+### Setup:
+
+npm start  #  Runs on http://localhost:4000
+
+## Development Workflow
+
+### Terminal 1 - Server
+cd server && npm run start
+
+### Terminal 2 - Client
+cd client && npm run dev
+
+# 🤖 AI Assistance Acknowledgement (deepseek)
+
+## AI Usage Guidelines
+### The AI was used for:
+
+- Code suggestions and optimizations
+- Debugging assistance
+- Documentation templates
+- Architectural recommendations
+- Best practice implementations

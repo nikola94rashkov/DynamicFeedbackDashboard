@@ -4,6 +4,7 @@
   width: 100%;
   padding: 1rem 1.5rem;
   border: 1px solid var(--c-cards);
+  text-transform: capitalize;
 
   &:focus {
     border-color: var(--c-btn);

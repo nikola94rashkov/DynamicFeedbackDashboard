@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { User, UserCredentials, UserResponse } from '@/types/user.types'
+import type {LoginResponse, User, UserCredentials, UserResponse} from '@/types/user.types'
 
 export const userApiSlice = createApi({
     reducerPath: 'user',
@@ -18,7 +18,7 @@ export const userApiSlice = createApi({
                     },
                 }),
             }),
-            login: build.mutation<UserResponse, UserCredentials>({
+            login: build.mutation<LoginResponse, UserCredentials>({
                 query: (user) => ({
                     url: '/login',
                     method: 'POST',

@@ -3,7 +3,7 @@ import {filterCategoryData, filterStatusData, filterSortByData} from "@/data/sel
 import type {FeedbackFilter} from "@/types/feedback.types.ts";
 import './Filter.scss';
 
-interface FilterProps {
+type FilterProps = {
     searchValue?: string;
     categoryValue: string;
     statusValue: string;

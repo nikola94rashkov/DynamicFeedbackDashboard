@@ -11,6 +11,8 @@ export const Dashboard = () => {
         page: 1,
         limit: 10,
         userId: user?._id ? user?._id : ''
+    }, {
+        refetchOnMountOrArgChange: true
     });
 
     if(isLoading) return <h1>Loading...</h1>;

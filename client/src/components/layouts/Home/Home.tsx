@@ -11,6 +11,8 @@ export const Home = () => {
         category: filters.category,
         status: filters.status,
         sortBy: filters.sortBy,
+    }, {
+        refetchOnMountOrArgChange: true
     })
 
     if(isLoading) return <h1>Loading...</h1>;
@@ -18,26 +20,28 @@ export const Home = () => {
 
     return (
         <>
-            <Filter
-                setFilters={setFilters}
-                setSearch={setSearch}
-                sortByValue={filters.sortBy}
-                categoryValue={filters.category}
-                searchValue={filters.search}
-                statusValue={filters.status}
-            />
+           <div className="home">
+               <Filter
+                   setFilters={setFilters}
+                   setSearch={setSearch}
+                   sortByValue={filters.sortBy}
+                   categoryValue={filters.category}
+                   searchValue={filters.search}
+                   statusValue={filters.status}
+               />
 
-            {
-                !data?.feedbacks.length ? <h1>No feedbacks found</h1> :  <CardList cards={data?.feedbacks} />
-            }
+               {
+                   !data?.feedbacks.length ? <h1>No feedbacks found</h1> :  <CardList cards={data?.feedbacks} />
+               }
 
-            {
-                data?.totalPages && <Paging
-                    page={filters.page}
-                    totalPages={data?.totalPages}
-                    setFilters={setFilters}
-                />
-            }
+               {
+                   data?.totalPages && <Paging
+                       page={filters.page}
+                       totalPages={data?.totalPages}
+                       setFilters={setFilters}
+                   />
+               }
+           </div>
         </>
     )
 }

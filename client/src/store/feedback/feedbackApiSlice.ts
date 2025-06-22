@@ -4,7 +4,9 @@ import type {
     FeedbackExtended,
     FeedbackPagination,
     FeedbackList,
-    FeedbackFilter, FeedbacksUpdate, FeedbackResponse, FeedbackFilterAndPagination
+    FeedbacksUpdate,
+    FeedbackResponse,
+    FeedbackFilterAndPagination
 } from '@/types/feedback.types.ts'
 
 export const feedbackApiSlice = createApi({

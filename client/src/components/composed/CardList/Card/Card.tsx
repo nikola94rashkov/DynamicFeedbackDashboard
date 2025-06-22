@@ -1,22 +1,34 @@
 import type {Feedback} from "@/types/feedback.types.ts";
 import './Card.scss'
-import {Button} from "@/components/ui";
+import {Button, NavButton} from "@/components/ui";
 import {useSelector} from "react-redux";
 import type {RootState} from "@/store/store.ts";
 import {useDeleteFeedbackMutation} from "@/store/feedback/feedbackApiSlice.ts";
+import {toast} from "sonner";
+import {useNavigate} from "react-router-dom";
 
 export const Card = (props: Feedback) => {
+    const { author, name, status, category, content, _id } = props;
     const { user } = useSelector((state: RootState) => state.authSlice)
     const [deleteFeedback] = useDeleteFeedbackMutation()
-    const { author, name, status, category, content, _id } = props;
+    const navigate = useNavigate();
 
     const handleDelete = async () => {
         if (!_id) return
 
+        const isConfirmed = confirm("Are you sure you want to delete this feedback? This action cannot be undone.");
+
+        if (!isConfirmed) return;
+
         try {
-            await deleteFeedback(_id);
+            const response = await deleteFeedback(_id);
+            console.log('Delete successful:', response);
+
+            toast.success('Delete successful');
+            navigate('/');
         } catch (error) {
-            console.error('Error deleting post:', error)
+            toast.success('Error deleting feedback:');
+            console.error(error);
         }
     }
 
@@ -43,7 +55,7 @@ export const Card = (props: Feedback) => {
             {
                 user && user?._id === author?._id && (
                     <div className="card__actions">
-                        <Button>Edit</Button>
+                        <NavButton text='Edit' to={`/edit/${_id}`}/>
                         <Button onClick={()=> {
                             console.log('click')
                             handleDelete()

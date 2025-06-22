@@ -7,8 +7,11 @@ import {useLoginMutation} from "@/store/user/userApiSlice.ts";
 import {setUser} from "@/store/auth/authSlice.ts";
 import {Button, Field} from "@/components/ui";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {useState} from "react";
+import {toast} from "sonner";
 
 export const Login = () => {
+    const [error, setError] = useState<string | null>(null);
     const dispatch = useDispatch<AppDispatch>()
     const [login] = useLoginMutation();
     const navigate = useNavigate()
@@ -27,19 +30,24 @@ export const Login = () => {
         try {
             const response = await login({...data})
 
-            console.log(response)
+            console.log('response', response)
 
             if(response.data?.user) {
-                console.log(response.data?.user)
-
                 dispatch(
                     setUser({
                         _id: response.data.user._id,
                         role: response.data?.user.role,
+                        email: response.data?.user.email
                     })
                 )
 
+                toast.success(`Welcome!`)
+
                 navigate('/dashboard')
+            }
+
+            if(response?.error) {
+                setError(response?.error?.data?.message)
             }
         } catch (e) {
             console.error(e)
@@ -63,6 +71,11 @@ export const Login = () => {
 
                 <span className={`hidden ${errors.password ? 'error' : ''}`}>{errors.password?.message}</span>
             </div>
+
+            {
+                error && <span className='error'>{error}</span>
+            }
+
 
             <Button type='submit' disabled={isSubmitting}>{isSubmitting ? 'Loading...' : 'Submit'}</Button>
         </form>

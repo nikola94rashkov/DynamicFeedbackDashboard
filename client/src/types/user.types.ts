@@ -16,8 +16,22 @@ export type UserResponse = {
     message: string
 }
 
+export type UserResponseError = {
+    data: {
+        message: string;
+    }
+    status: number;
+};
+
+export type LoginResponse = {
+    user?: UserCookie;
+    data?: UserResponse;
+    error?: UserResponseError;
+}
+
 export type UserCookie = Pick<User, 'role'> & {
     _id: string
+    email: string
 }
 
 export type UserCredentials = Pick<User, 'email' | 'password'>

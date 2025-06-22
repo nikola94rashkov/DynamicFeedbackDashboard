@@ -3,11 +3,11 @@ import type {Optional} from "@/types/util.types.ts";
 
 export type Status = 'pending' | 'resolved' | 'closed' | '*';
 export type Category = 'bug' | 'feature' | '*';
-export type SortBy = 'name' | 'category' | 'status' | 'oldest' | 'newest' | '*';
 
 export type Feedback = {
     _id?: string
     name: string
+    email?: string
     content: string
     status: Status
     category: Category
@@ -25,8 +25,6 @@ export type FeedbackList = {
     totalPages: number
     currentPage: number
 }
-
-export type FeedbackListPagination = Omit<FeedbackList, 'feedbacks' | 'totalFeedbacks'>
 
 export type FeedbackResponse = {
     message: string

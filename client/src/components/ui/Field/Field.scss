@@ -8,4 +8,10 @@
   &:focus {
     border-color: var(--c-btn);
   }
+
+  &--muted {
+    color: color-mix(in srgb, var(--c-primary-text) 40%, transparent);
+    background-color: color-mix(in srgb, var(--c-cards) 70%, transparent);
+    cursor: not-allowed;
+  }
 }

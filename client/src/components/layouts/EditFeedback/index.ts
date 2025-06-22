@@ -1,1 +1,1 @@
-export * from "./EditFeedback.tsx";
+export * from "./EditFeedback";
