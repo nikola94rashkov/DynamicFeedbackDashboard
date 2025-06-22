@@ -41,7 +41,7 @@ export const Card = (props: Feedback) => {
             </div>
 
             {
-                user?._id === author?._id && (
+                user && user?._id === author?._id && (
                     <div className="card__actions">
                         <Button>Edit</Button>
                         <Button onClick={()=> {

@@ -7,7 +7,7 @@ export type FieldProps = {
 } & ComponentProps<'input'>
 
 export const Field = (props: FieldProps) => {
-    const { className, type= 'text', ...rest } = props
+    const { className ='', type= 'text', ...rest } = props
 
     return <input className={`field ${className}`} type={type} {...rest}/>
 }

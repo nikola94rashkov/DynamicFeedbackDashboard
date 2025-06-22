@@ -20,7 +20,7 @@ export const Login = () => {
     } = useForm<FormFields>({
         resolver: zodResolver(schema),
         defaultValues,
-        mode: 'onBlur',
+        mode: 'onChange',
     })
 
     const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {

@@ -10,6 +10,10 @@ export const data = (handleLogout: () => Promise<void>) => {
                 to: '/dashboard',
             },
             {
+                text: 'Create Feedback',
+                to: '/createFeedback',
+            },
+            {
                 text: 'Logout',
                 isItButtonElement: true,
                 onClick: handleLogout,

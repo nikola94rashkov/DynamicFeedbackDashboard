@@ -49,5 +49,6 @@ export type FeedbackPagination = {
 export type FeedbackFilter = {
     category?: Category
     status?: Status
-    sortBy?:SortBy
+    sortBy?: SortBy
+    search?: string
 } & FeedbackPagination

@@ -4,7 +4,7 @@ import type {
     FeedbackExtended,
     FeedbackPagination,
     FeedbackList,
-    FeedbackFilter, FeedbacksUpdate
+    FeedbackFilter, FeedbacksUpdate, FeedbackResponse
 } from '@/types/feedback.types.ts'
 
 export const feedbackApiSlice = createApi({
@@ -17,12 +17,13 @@ export const feedbackApiSlice = createApi({
     endpoints: (build) => {
         return {
             getAllFeedbacks: build.query<FeedbackList, FeedbackFilter>({
-                query: ({ page = 1, limit = 10, category, status, sortBy }) => {
+                query: ({ page = 1, limit = 10, category, status, sortBy, search }) => {
                     const isStatusAvailable = status ? `&status=${status}` : '';
                     const isSortByAvailable = sortBy ? `&sortBy=${sortBy}` : '';
                     const isCategoryAvailable =category ? `&category=${category}` : ''
+                    const isSearchAvailable = search ? `&search=${search}` : ''
 
-                    return `?page=${page}&limit=${limit}${isCategoryAvailable}${isStatusAvailable}${isSortByAvailable}`
+                    return `?page=${page}&limit=${limit}${isCategoryAvailable}${isStatusAvailable}${isSortByAvailable}${isSearchAvailable}`
                 },
             }),
             getFeedbacksByUserId: build.query<
@@ -42,7 +43,7 @@ export const feedbackApiSlice = createApi({
                 }),
                 invalidatesTags: [{ type: 'Feedbacks', id: 'LIST' }],
             }),
-            createFeedback: build.mutation<Feedback, FormData>({
+            createFeedback: build.mutation<FeedbackResponse, Omit<Feedback, '_id' | 'author'>>({
                 query: (feedback) => ({
                     url: '',
                     method: 'POST',

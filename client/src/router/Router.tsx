@@ -22,6 +22,16 @@ const Login = lazy(() =>
         default: module.Login,
     })),
 )
+const CreateFeedback = lazy(() =>
+    import('@/components/layouts/CreateFeedback').then((module) => ({
+        default: module.CreateFeedback,
+    })),
+)
+const EditFeedback = lazy(() =>
+    import('@/components/layouts/EditFeedback').then((module) => ({
+        default: module.EditFeedback,
+    })),
+)
 const NotFound = lazy(() =>
     import('@/components/layouts/NotFound').then((module) => ({
         default: module.NotFound,
@@ -56,6 +66,16 @@ export const Router = () => {
                     <Route
                         path='/dashboard'
                         element={<Dashboard />}
+                    />
+
+                    <Route
+                        path='/createFeedback'
+                        element={<CreateFeedback />}
+                    />
+
+                    <Route
+                        path='/edit/:feedbackId'
+                        element={<EditFeedback />}
                     />
                 </Route>
                 <Route

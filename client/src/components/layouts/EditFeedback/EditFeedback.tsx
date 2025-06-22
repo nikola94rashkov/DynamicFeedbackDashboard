@@ -1,0 +1,1 @@
+export const EditFeedback = () => <h1>EditFeedback</h1>

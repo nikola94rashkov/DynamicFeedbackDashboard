@@ -5,7 +5,10 @@ export const Home = () => {
     const { data, isLoading, isError } = useGetAllFeedbacksQuery({
         page: 1,
         limit: 10,
-        sortBy: 'category',
+        // search: 'aa',
+        // category: '',
+        // status: '',
+        // sortBy: 'status'
     })
 
     console.log('data', data)
