@@ -110,11 +110,19 @@ const getFeedbackById = async (req, res) => {
 };
 
 const getAllFeedbacks = async (req, res) => {
-    const { page = 1, limit = 10, status, category, sortBy } = req.query;
+    const { page = 1, limit = 10, status, category, sortBy, search } = req.query;
 
     const filter = {};
     if (category) filter.category = category;
     if (status) filter.status = status;
+
+    if (search) {
+        filter.$or = [
+            { name: { $regex: search, $options: 'i' } },
+            { email: { $regex: search, $options: 'i' } },
+            { content: { $regex: search, $options: 'i' } }
+        ];
+    }
 
     try {
         const skip = (page - 1) * limit;
@@ -139,23 +147,19 @@ const getAllFeedbacks = async (req, res) => {
                 { $sort: { statusOrder: 1, createdAt: -1 } },
                 { $skip: skip },
                 { $limit: parseInt(limit) },
-                {
-                    $lookup: {
-                        from: 'users',
-                        localField: 'author',
-                        foreignField: '_id',
-                        as: 'author'
-                    }
-                },
-                { $unwind: '$author' },
                 { $project: {
                         name: 1,
-                        content: 1,
                         email: 1,
+                        content: 1,
                         category: 1,
                         status: 1,
                         createdAt: 1,
                         updatedAt: 1,
+                        author: {
+                            _id: '$author._id',
+                            email: '$author.email',
+                            role: '$author.role'
+                        }
                     }}
             ]);
         } else {
@@ -179,7 +183,7 @@ const getAllFeedbacks = async (req, res) => {
             }
 
             feedbacks = await Feedback.find(filter)
-                .populate('author', 'firstName lastName email')
+                .populate('author', '_id email role')
                 .skip(skip)
                 .limit(parseInt(limit))
                 .sort(sortOptions);
