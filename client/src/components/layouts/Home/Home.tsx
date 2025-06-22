@@ -3,7 +3,7 @@ import {CardList, Filter, Paging} from "@/components/composed";
 import {useFilterOptions} from "@/hooks";
 
 export const Home = () => {
-    const { filters , setFilters } = useFilterOptions()
+    const { filters , setFilters, setSearch} = useFilterOptions()
     const {  data, isLoading, isError } = useGetAllFeedbacksQuery({
         limit: 10,
         page: filters.page,
@@ -22,6 +22,7 @@ export const Home = () => {
         <>
             <Filter
                 setFilters={setFilters}
+                setSearch={setSearch}
                 sortByValue={filters.sortBy}
                 categoryValue={filters.category}
                 searchValue={filters.search}

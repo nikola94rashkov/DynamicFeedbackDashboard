@@ -9,6 +9,7 @@ interface FilterProps {
     statusValue: string;
     sortByValue: string;
     setFilters: (filter: Partial<FeedbackFilter>) => void;
+    setSearch: (data: string) => void;
 }
 
 export const Filter = ({
@@ -16,7 +17,8 @@ export const Filter = ({
    categoryValue = '*',
    statusValue = '*',
    sortByValue = '*',
-   setFilters
+   setFilters,
+   setSearch,
 }: FilterProps) => {
 
     return (
@@ -26,7 +28,7 @@ export const Filter = ({
                     <Field
                         id="search"
                         value={searchValue}
-                        onChange={(e) => setFilters({ search: e.target.value })}
+                        onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search feedbacks..."
                     />
                 </div>

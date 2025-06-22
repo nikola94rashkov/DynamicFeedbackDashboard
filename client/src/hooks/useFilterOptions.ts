@@ -24,19 +24,17 @@ export const useFilterOptions = (defaultLimit = 10) => {
         setSearchParams(prevParams => {
             const params = new URLSearchParams(prevParams);
 
-            // Only update page if it's provided in newFilters
+            // Update page if provided
             if (newFilters.page !== undefined) {
                 params.set('page', newFilters.page.toString());
             }
 
-            if (newFilters.search !== undefined) {
-                if (newFilters.search) {
-                    params.set('search', newFilters.search);
-                } else {
-                    params.delete('search');
-                }
+            // Update limit if provided
+            if (newFilters.limit !== undefined) {
+                params.set('limit', newFilters.limit.toString());
             }
 
+            // Update category if provided (doesn't affect search)
             if (newFilters.category !== undefined) {
                 if (newFilters.category && newFilters.category !== '*') {
                     params.set('category', newFilters.category);
@@ -45,6 +43,7 @@ export const useFilterOptions = (defaultLimit = 10) => {
                 }
             }
 
+            // Update status if provided (doesn't affect search)
             if (newFilters.status !== undefined) {
                 if (newFilters.status && newFilters.status !== '*') {
                     params.set('status', newFilters.status);
@@ -53,6 +52,7 @@ export const useFilterOptions = (defaultLimit = 10) => {
                 }
             }
 
+            // Update sortBy if provided (doesn't affect search)
             if (newFilters.sortBy !== undefined) {
                 if (newFilters.sortBy && newFilters.sortBy !== '*') {
                     params.set('sortBy', newFilters.sortBy);
@@ -65,8 +65,26 @@ export const useFilterOptions = (defaultLimit = 10) => {
         });
     }, [setSearchParams]);
 
+    const setSearch = useCallback((searchTerm: string) => {
+        setSearchParams(prevParams => {
+            const params = new URLSearchParams(prevParams);
+
+            // Reset to page 1 when searching
+            params.set('page', '1');
+
+            if (searchTerm) {
+                params.set('search', searchTerm);
+            } else {
+                params.delete('search');
+            }
+
+            return params;
+        });
+    }, [setSearchParams]);
+
     return {
         filters,
         setFilters,
+        setSearch, // New separate function for search
     };
 };
